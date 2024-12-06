@@ -33,9 +33,9 @@ const Home = () => {
 
       {/* Main Content */}
       <div className="container">
-        <h1 className="home-title">Click to see new book collection</h1>
+        <h1 className="home-title">Welcome to Book Finder!</h1>
         <button className="btn" onClick={goToNewCollection}>
-          New Collection
+          Find a Book
         </button>
       </div>
     </div>
