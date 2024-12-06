@@ -1,0 +1,310 @@
+:root {
+    /* Color Palette */
+    --primary-color: #6a1b9a;
+    --secondary-color: #3949ab;
+    --background-color: #f0f4f8;
+    --text-color: #333;
+    --accent-color: #3c2e41;
+    --white: #ffffff;
+    /* Typography */
+    --base-font: 'Inter', 'Arial', sans-serif;
+    /* Shadows and Effects */
+    --shadow-subtle: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Reset and Base Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--base-font);
+    background-color: var(--background-color);
+    line-height: 1.6;
+    color: var(--text-color);
+    background: url('https://i.pinimg.com/736x/b9/b7/65/b9b76551dc5e1e5633f5b9579d90ef4c.jpg') center/cover fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+    text-align: center;
+}
+
+
+/* Container Styles */
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    box-shadow: var(--shadow-medium);
+    text-align: center;
+    margin-top: 5rem;
+}
+
+
+/* Logo Styles */
+
+.app-logo {
+    display: block;
+    margin: 0 auto 1rem;
+    max-width: 200px;
+    height: auto;
+}
+
+
+/* Title Styles */
+
+h1 {
+    color: var(--accent-color);
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-shadow: 1px 1px 2px #be15a433;
+}
+
+
+/* Button Styles */
+
+button,
+.btn {
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    font-size: 0.9rem;
+    /* Smaller font size */
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    /* Reduced padding */
+    border: none;
+    border-radius: 8px;
+    /* Smaller border radius */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 140px;
+    /* Ensures a minimum width for consistency */
+}
+
+
+/* Adjusting button container for vertical alignment */
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    /* Stacks the buttons vertically */
+    align-items: center;
+    gap: 1.5rem;
+    /* Adds space between each button */
+    margin-top: 30px;
+}
+
+
+/* Book List Styles */
+
+.book-list-container {
+    margin-top: 100px;
+}
+
+
+/* Input Styles */
+
+input[type="text"],
+input[type="password"],
+input[type="Email"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem;
+    margin: 1rem auto;
+    font-size: 1.2rem;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #d8cae0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+
+/* Login Form Styles */
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+}
+
+
+/* Utility Classes */
+
+.text-muted {
+    color: #6c757d;
+}
+
+.mt-2 {
+    margin-top: 1rem;
+}
+
+
+/* Responsive Styles */
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    button,
+    .btn {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+
+/* SignUp Link Styles */
+
+.signup-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #555;
+}
+
+.signup-link {
+    color: #815a89;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.signup-link:hover {
+    background-color: #815a89;
+    color: white;
+    transform: scale(1.05);
+}
+
+.signup-link:active {
+    transform: scale(1);
+    background-color: #815a89;
+}
+
+
+/* Navbar Styles */
+
+.navbar {
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 1rem 0;
+    box-shadow: var(--shadow-medium);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-list {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.navbar-link:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+
+/* Adjust Navbar Layout for Content */
+
+.container {
+    margin-top: 5rem;
+}
+
+
+/* Button Container for Navbar */
+
+.navbar-link {
+    background-color: #6c63ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.navbar-link:hover {
+    background-color: #5a52e0;
+}
+
+
+/* Search Bar Styles */
+
+.search-bar {
+    width: 100%;
+    max-width: 600px;
+    padding: 0.8rem 1.2rem;
+    margin: 1rem auto;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+    border-color: #6a1b9a;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.search-bar::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
