@@ -1,24 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import logo from "./logo.png"; // Ensure the path is correct.
 
 const SignUp = () => {
-  const navigate = useNavigate();
-
-  // Local state to hold form data
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
-    e.preventDefault(); // Prevent form from reloading the page
+    e.preventDefault();
 
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
+
+    const userData = { fullName, email, password };
 
     try {
       const response = await fetch("http://localhost:5000/api/auth/signup", {
@@ -26,19 +26,20 @@ const SignUp = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fullName, email, password }),
+        body: JSON.stringify(userData),
       });
 
       const data = await response.json();
+
       if (response.ok) {
-        alert("Account created successfully!");
-        navigate("/home"); // Redirect after account creation
+        alert("Account created successfully! Please login.");
+        navigate("/"); // Redirect to login after successful signup
       } else {
-        alert(data.message); // Show error message if user already exists
+        alert(data.message);
       }
-    } catch (error) {
-      console.error("Error creating account:", error);
-      alert("Error creating account");
+    } catch (err) {
+      console.error("Signup failed:", err);
+      alert("Signup failed, please try again.");
     }
   };
 
@@ -51,21 +52,29 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
             className="login-input"
           />
           <input
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="login-input"
           />
           <input
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="login-input"
           />
           <input
             type="password"
             placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="login-input"
           />
           <button className="login-button" onClick={handleSignUp}>
