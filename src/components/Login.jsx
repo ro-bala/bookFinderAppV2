@@ -5,10 +5,35 @@ import logo from "./logo.png"; // Ensure the path is correct.
 
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    navigate("/home");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // Store the token in localStorage or sessionStorage
+        localStorage.setItem("authToken", data.token);
+        navigate("/home"); // Redirect to home page
+      } else {
+        alert(data.message); // Show error message
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Error logging in");
+    }
   };
+  
   return (
     <div className="login-container">
       <img src={logo} alt="Logo" className="app-logo" />
