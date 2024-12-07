@@ -18,7 +18,7 @@ const MyCollection = ({ removeFromFavorites }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/favorites", {
+      const response = await fetch("http://localhost:5000/api/books/collections", {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${authToken}`, // Send the token in the header
@@ -41,15 +41,15 @@ const MyCollection = ({ removeFromFavorites }) => {
       alert("You must be logged in to remove books.");
       return;
     }
-
+  
     try {
-      const response = await fetch(`http://localhost:5000/api/favorites/${bookId}`, {
+      const response = await fetch(`http://localhost:5000/api/books/collections/${bookId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${authToken}`,
         },
       });
-
+  
       const data = await response.json();
       if (response.ok) {
         alert("Book removed from favorites.");

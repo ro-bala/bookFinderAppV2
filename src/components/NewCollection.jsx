@@ -43,7 +43,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/favorites", {
+      const response = await fetch("http://localhost:5000/api/books/collections/save/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
