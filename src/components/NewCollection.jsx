@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) => {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [authToken, setAuthToken] = useState(localStorage.getItem('token')); // Assuming you're using token from localStorage
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,6 +34,34 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
     const subjects = ["love", "science", "history", "art", "fiction"];
     const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
     fetchBooks(randomSubject); // Fetch books from a random subject
+  };
+
+  const saveBookToFavorites = async (book) => {
+    if (!authToken) {
+      alert("You must be logged in to save books.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/favorites", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${authToken}`, // Send the token in the header
+        },
+        body: JSON.stringify({ book })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Book saved to your favorites!");
+        addToFavorites(book); // Optionally update the local state if you keep track of favorites
+      } else {
+        alert(data.message || "Error saving book");
+      }
+    } catch (error) {
+      console.error("Error saving book:", error);
+    }
   };
 
   return (
@@ -75,7 +104,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
             </button>
             <button
               className="navbar-link"
-              onClick={() => navigate("/Login")}
+              onClick={() => navigate("/login")}
             >
               Login/Sign-Up page
             </button>
@@ -113,7 +142,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
             <p>By: {book.authors?.map((author) => author.name).join(", ")}</p>
             <button
               className="favorite-button"
-              onClick={() => addToFavorites(book)}
+              onClick={() => saveBookToFavorites(book)} // Call the function when adding to favorites
             >
               Add to Favorites
             </button>

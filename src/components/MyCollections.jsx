@@ -1,8 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const MyCollection = ({ favorites, removeFromFavorites }) => {
+const MyCollection = ({ removeFromFavorites }) => {
+  const [favorites, setFavorites] = useState([]);
+  const [authToken, setAuthToken] = useState(localStorage.getItem('token')); // Assuming you're using token from localStorage
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchFavorites(); // Fetch saved books when the component mounts
+  }, []);
+
+  const fetchFavorites = async () => {
+    if (!authToken) {
+      alert("You must be logged in to see your collection.");
+      navigate("/login"); // Redirect to login if no token
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/favorites", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${authToken}`, // Send the token in the header
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setFavorites(data.books); // Assuming the backend returns an array of books
+      } else {
+        alert(data.message || "Error fetching favorite books");
+      }
+    } catch (error) {
+      console.error("Error fetching favorites:", error);
+    }
+  };
+
+  const handleRemoveFavorite = async (bookId) => {
+    if (!authToken) {
+      alert("You must be logged in to remove books.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/favorites/${bookId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${authToken}`,
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Book removed from favorites.");
+        // Update the local state after removal
+        setFavorites(favorites.filter((book) => book.key !== bookId));
+      } else {
+        alert(data.message || "Error removing book");
+      }
+    } catch (error) {
+      console.error("Error removing book:", error);
+    }
+  };
 
   return (
     <div className="container">
@@ -20,7 +79,7 @@ const MyCollection = ({ favorites, removeFromFavorites }) => {
               <h3>{book.title}</h3>
               <button
                 className="favorite-button"
-                onClick={() => removeFromFavorites(book.key)}
+                onClick={() => handleRemoveFavorite(book.key)} // Call the function to remove
               >
                 Remove from Favorites
               </button>
