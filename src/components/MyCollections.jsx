@@ -18,7 +18,7 @@ const MyCollection = ({ removeFromFavorites }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/books/collections", {
+      const response = await fetch(`${import.meta.env.VITE_BE_URL}/api/books/collections`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${authToken}`, // Send the token in the header
@@ -38,7 +38,7 @@ const MyCollection = ({ removeFromFavorites }) => {
 
   const handleRemoveFavorite = async (bookId) => {
     try {
-      const response = await fetch('http://localhost:5000/api/books/collections/delete', {
+      const response = await fetch(`${import.meta.env.VITE_BE_URL}/api/books/collections/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json", // Add content type header

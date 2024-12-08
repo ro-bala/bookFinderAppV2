@@ -43,7 +43,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/books/collections/save/", {
+      const response = await fetch(`${import.meta.env.VITE_BE_URL}/api/books/collections/save/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
