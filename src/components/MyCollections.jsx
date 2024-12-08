@@ -37,31 +37,34 @@ const MyCollection = ({ removeFromFavorites }) => {
   };
 
   const handleRemoveFavorite = async (bookId) => {
-    if (!authToken) {
-      alert("You must be logged in to remove books.");
-      return;
-    }
-  
     try {
-      const response = await fetch(`http://localhost:5000/api/books/collections/${bookId}`, {
+      const response = await fetch('http://localhost:5000/api/books/collections/delete', {
         method: "DELETE",
         headers: {
+          "Content-Type": "application/json", // Add content type header
           "Authorization": `Bearer ${authToken}`,
         },
+        body: JSON.stringify({
+          key: bookId, // Send the book key in the request body
+        }),
       });
   
-      const data = await response.json();
-      if (response.ok) {
-        alert("Book removed from favorites.");
-        // Update the local state after removal
-        setFavorites(favorites.filter((book) => book.key !== bookId));
-      } else {
-        alert(data.message || "Error removing book");
+      if (!response.ok) {
+        const errorText = await response.text();
+        alert("Error removing book: " + errorText);
+        return;
       }
+  
+      // Remove the book from the local state
+      setFavorites(favorites.filter((book) => book.key !== bookId));
+  
+      alert("Book removed from favorites.");
     } catch (error) {
       console.error("Error removing book:", error);
+      alert("Error removing book.");
     }
   };
+  
 
   return (
     <div className="container">
@@ -79,7 +82,10 @@ const MyCollection = ({ removeFromFavorites }) => {
               <h3>{book.title}</h3>
               <button
                 className="favorite-button"
-                onClick={() => handleRemoveFavorite(book.key)} // Call the function to remove
+                onClick={() => {
+                  console.log(book.key); // Log the book's key
+                  handleRemoveFavorite(book.key);
+                }}
               >
                 Remove from Favorites
               </button>
