@@ -106,7 +106,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
               className="navbar-link"
               onClick={() => navigate("/login")}
             >
-              Login/Sign-Up page
+              Profile
             </button>
           </li>
         </ul>
