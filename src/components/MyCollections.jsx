@@ -1,5 +1,7 @@
+//MY COLLECTIONS
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../imgs/logo.png"; // Adjust the path to your logo file
 
 const MyCollection = ({ removeFromFavorites }) => {
   const [favorites, setFavorites] = useState([]);
@@ -64,10 +66,39 @@ const MyCollection = ({ removeFromFavorites }) => {
       alert("Error removing book.");
     }
   };
-  
 
   return (
     <div className="container">
+      <nav className="navbar">
+        <div className="navbar-container">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+          <p className="current-page">My Collection</p>
+          <ul className="navbar-list">
+          <li>
+              <button className="navbar-link" onClick={() => navigate("/archive")}>
+                Archive
+              </button>
+            </li>
+            
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/downloaded-books")}>
+                Downloaded Books
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/home")}>
+                Home Page
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/profile")}>
+                Profile
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
       <h1>My Collection</h1>
       {favorites.length === 0 ? (
         <p>No favorite books added yet!</p>
@@ -82,10 +113,7 @@ const MyCollection = ({ removeFromFavorites }) => {
               <h3>{book.title}</h3>
               <button
                 className="favorite-button"
-                onClick={() => {
-                  console.log(book.key); // Log the book's key
-                  handleRemoveFavorite(book.key);
-                }}
+                onClick={() => handleRemoveFavorite(book.key)}
               >
                 Remove from Favorites
               </button>
