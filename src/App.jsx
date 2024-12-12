@@ -8,6 +8,7 @@ import BookDetails from "./components/BookDetails";
 import MyCollection from "./components/MyCollections";
 import Archive from "./components/Archive";
 import DownloadedBooks from "./components/DownloadedBooks"; // Import DownloadedBooks page
+import Profile  from "./components/Profile"; 
 
 import logo from "./imgs/logo.png"; 
 import "./App.css";
@@ -90,6 +91,7 @@ const App = () => {
           />
           <Route path="/book-details" element={<BookDetails />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>
