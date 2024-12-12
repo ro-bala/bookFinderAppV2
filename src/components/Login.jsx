@@ -1,3 +1,4 @@
+//LOGIN
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
@@ -39,9 +40,10 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <h1>Welcome To BookWorm!</h1>
       <img src={logo} alt="Logo" className="app-logo" />
       <div className="login-card">
-        <h1>Login / Sign-Up</h1>
+        <h2>Login / Sign-Up</h2>
         <div className="login-form">
           <input
             type="email"
