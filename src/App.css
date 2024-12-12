@@ -1,4 +1,4 @@
-:root {
+::root {
     /* Color Palette */
     --primary-color: #6a1b9a;
     --secondary-color: #3949ab;
@@ -326,7 +326,7 @@ input[type="password"]::placeholder {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
-.download-button{
+download-button{
     margin:1px;
     margin-bottom: 10px;
 }
@@ -379,4 +379,3 @@ input[type="password"]::placeholder {
   .btn:hover {
     background-color: var(--secondary-color);
   }
-  
