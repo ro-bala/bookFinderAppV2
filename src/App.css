@@ -248,7 +248,7 @@ input[type="password"]::placeholder {
     font-size: 1.1rem;
     font-weight: bold;
     transition: all 0.3s ease;
-    background-color: #6c63ff;
+    background-color: var(--white);
     padding: 10px 20px;
     border: none;
     cursor: pointer;
@@ -264,7 +264,6 @@ input[type="password"]::placeholder {
 .container {
     margin-top: 5rem;
 }
-
 
 /* Search Bar Styles */
 
