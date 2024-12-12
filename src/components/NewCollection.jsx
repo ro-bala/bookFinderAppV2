@@ -1,5 +1,8 @@
+//NEW COLLECTION
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../imgs/logo.png"; // Adjust the path to your logo file
+import Vines from "../imgs/Vines.jpeg";
 
 const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) => {
   const [books, setBooks] = useState([]);
@@ -66,51 +69,41 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
 
   return (
     <div className="container">
-      <h1>New Collection</h1>
-
-      {/* Navbar for the buttons */}
       <nav className="navbar">
-        <ul className="navbar-list">
+        <div className="navbar-container">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+          <p className="current-page">Find A Book</p>
+          <ul className="navbar-list">
           <li>
-            <button
-              className="navbar-link"
-              onClick={() => navigate("/my-collection")}
-            >
-              Go to My Collection
-            </button>
-          </li>
-          <li>
-            <button
-              className="navbar-link"
-              onClick={() => navigate("/archive")}
-            >
-              Go to Archive
-            </button>
-          </li>
-          <li>
-            <button
-              className="navbar-link"
-              onClick={() => navigate("/downloaded-books")}
-            >
-              Downloaded Books
-            </button>
-          </li>
-          <li>
-            <button
-              className="navbar-link"
-              onClick={() => navigate("/home")}
-            >
-              Go to Home Page
-            </button>
-            <button
-              className="navbar-link"
-              onClick={() => navigate("/login")}
-            >
-              Profile
-            </button>
-          </li>
-        </ul>
+              <button className="navbar-link" onClick={() => navigate("/archive")}>
+                Archive
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/my-collection")}>
+                My Collection
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/downloaded-books")}>
+                Downloaded Books
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/home")}>
+                Home Page
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/profile")}>
+                Profile
+              </button>
+            </li>
+          </ul>
+        </div>
       </nav>
+
+      <h1>New Collection</h1>
 
       {/* Search Bar */}
       <div className="search-container">
@@ -130,6 +123,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
 
       {/* Books Display */}
       <div className="grid-container">
+        <img src={Vines} />
         {filteredBooks.map((book) => (
           <div className="card" key={book.key}>
             <img
@@ -144,7 +138,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
               className="favorite-button"
               onClick={() => saveBookToFavorites(book)} // Call the function when adding to favorites
             >
-              Add to Favorites
+              Add to Collection
             </button>
             <button
               className="archive-button"
@@ -158,8 +152,10 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
             >
               Download Book
             </button>
+            <img src={Vines} />
           </div>
         ))}
+      
       </div>
     </div>
   );
