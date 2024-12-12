@@ -248,7 +248,7 @@ input[type="password"]::placeholder {
     font-size: 1.1rem;
     font-weight: bold;
     transition: all 0.3s ease;
-    background-color: #6c63ff;
+    background-color: hsl(245, 35%, 93%);
     padding: 10px 20px;
     border: none;
     cursor: pointer;
