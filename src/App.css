@@ -276,7 +276,7 @@ input[type="password"]::placeholder {
     font-size: 1rem;
     border: 2px solid #ccc;
     border-radius: 25px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgb(255, 255, 255);
     outline: none;
     transition: all 0.3s ease;
 }
