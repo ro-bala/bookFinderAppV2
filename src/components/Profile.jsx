@@ -45,7 +45,7 @@ const Profile = () => {
 
   const handleBioSave = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/profile`, {
+      const response = await fetch(`${import.meta.env.VITE_BE_URL}/api/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
