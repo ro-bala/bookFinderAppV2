@@ -1,11 +1,42 @@
+//DOWNLOADED BOOKS
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../imgs/logo.png";
 
 const DownloadedBooks = ({ downloadedBooks, removeFromDownloadedBooks }) => {
   const navigate = useNavigate();
 
   return (
     <div className="container">
+      <nav className="navbar">
+        <div className="navbar-container">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+          <p className="current-page">Downloaded Books</p>
+          <ul className="navbar-list">
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/archive")}>
+                Archive
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/my-collection")}>
+                My Collection
+              </button>
+            </li>
+          
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/home")}>
+                Home Page
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/profile")}>
+                Profile
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <h1>Downloaded Books</h1>
       {downloadedBooks.length === 0 ? (
         <p>No books downloaded yet!</p>

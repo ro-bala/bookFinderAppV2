@@ -1,5 +1,7 @@
+//HOME
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import logo from "../imgs/logo.png"; // Adjust the path to your logo file
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,35 +11,40 @@ const Home = () => {
   };
 
   return (
-    <div>
-      {/* Navbar */}
+    <div className="container">
       <nav className="navbar">
-        <ul className="navbar-list">
-          <li>
-            <Link to="/archive" className="navbar-link">
-              Archive
-            </Link>
-          </li>
-          <li>
-            <Link to="/my-collection" className="navbar-link">
-              My Collection
-            </Link>
-          </li>
-          <li>
-            <Link to="/downloaded-books" className="navbar-link">
-              Downloaded Books
-            </Link>
-          </li>
-        </ul>
+        <div className="navbar-container">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+          <p className="current-page">Home</p>
+          <ul className="navbar-list">
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/archive")}>
+                Archive
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/my-collection")}>
+                My Collection
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/downloaded-books")}>
+                Downloaded Books
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link" onClick={() => navigate("/profile")}>
+                Profile
+              </button>
+            </li>
+          </ul>
+        </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="container">
-        <h1 className="home-title">Welcome to Book Finder!</h1>
-        <button className="btn" onClick={goToNewCollection}>
-          Find a Book
-        </button>
-      </div>
+      <h1 className="home-title">Welcome to BookWorm!</h1>
+      <button className="btn" onClick={goToNewCollection}>
+        Find a Book
+      </button>
     </div>
   );
 };

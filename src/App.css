@@ -13,7 +13,6 @@
     --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-
 /* Reset and Base Styles */
 
 * {
@@ -36,7 +35,6 @@ body {
     text-align: center;
 }
 
-
 /* Container Styles */
 
 .container {
@@ -50,7 +48,6 @@ body {
     margin-top: 5rem;
 }
 
-
 /* Logo Styles */
 
 .app-logo {
@@ -59,7 +56,6 @@ body {
     max-width: 200px;
     height: auto;
 }
-
 
 /* Title Styles */
 
@@ -71,7 +67,6 @@ h1 {
     letter-spacing: -0.5px;
     text-shadow: 1px 1px 2px #be15a433;
 }
-
 
 /* Button Styles */
 
@@ -98,7 +93,6 @@ button,
     /* Ensures a minimum width for consistency */
 }
 
-
 /* Adjusting button container for vertical alignment */
 
 .button-container {
@@ -111,19 +105,17 @@ button,
     margin-top: 30px;
 }
 
-
 /* Book List Styles */
 
 .book-list-container {
     margin-top: 100px;
 }
 
-
 /* Input Styles */
 
 input[type="text"],
 input[type="password"],
-input[type="Email"] {
+input[type="email"] {
     width: 100%;
     max-width: 400px;
     padding: 1rem;
@@ -148,7 +140,6 @@ input[type="password"]::placeholder {
     font-style: italic;
 }
 
-
 /* Login Form Styles */
 
 .login-form {
@@ -157,7 +148,6 @@ input[type="password"]::placeholder {
     align-items: center;
     gap: 0.1rem;
 }
-
 
 /* Utility Classes */
 
@@ -168,7 +158,6 @@ input[type="password"]::placeholder {
 .mt-2 {
     margin-top: 1rem;
 }
-
 
 /* Responsive Styles */
 
@@ -186,7 +175,6 @@ input[type="password"]::placeholder {
         min-width: auto;
     }
 }
-
 
 /* SignUp Link Styles */
 
@@ -218,9 +206,7 @@ input[type="password"]::placeholder {
     background-color: #815a89;
 }
 
-
 /* Navbar Styles */
-
 .navbar {
     width: 100%;
     background-color: var(--primary-color);
@@ -230,15 +216,30 @@ input[type="password"]::placeholder {
     top: 0;
     left: 0;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-logo {
+    margin-left: 1rem; /* Adjust the margin as needed */
+    height: 40px; /* Adjust the height as needed */
 }
 
 .navbar-list {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem; /* Adjust this value for the desired spacing */
     list-style: none;
-    margin: 0;
+    margin: 0 auto; /* Center the list */
     padding: 0;
+    flex: 1; /* Allow the list to grow and center itself */
 }
 
 .navbar-link {
@@ -247,25 +248,7 @@ input[type="password"]::placeholder {
     font-size: 1.1rem;
     font-weight: bold;
     transition: all 0.3s ease;
-}
-
-.navbar-link:hover {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-}
-
-
-/* Adjust Navbar Layout for Content */
-
-.container {
-    margin-top: 5rem;
-}
-
-
-/* Button Container for Navbar */
-
-.navbar-link {
     background-color: #6c63ff;
-    color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
@@ -274,6 +257,12 @@ input[type="password"]::placeholder {
 
 .navbar-link:hover {
     background-color: #5a52e0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Adjust Navbar Layout for Content */
+.container {
+    margin-top: 5rem;
 }
 
 
@@ -307,4 +296,41 @@ input[type="password"]::placeholder {
     justify-content: center;
     align-items: center;
     margin-top: 30px;
+}
+
+.current-page{
+    font-size: 1.5rem;
+}
+
+.generate-button {
+    margin: 5px 10px 40px 10px;
+}
+.generate-button:hover{
+    background-color: #5a52e0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.favorite-button{
+    margin:1px;
+}
+.favorite-button:hover{
+    background-color: #5a52e0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.archive-button{
+    margin:1px;
+}
+.archive-button:hover{
+    background-color: #5a52e0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.download-button{
+    margin:1px;
+    margin-bottom: 10px;
+}
+.download-button:hover{
+    background-color: #5a52e0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
