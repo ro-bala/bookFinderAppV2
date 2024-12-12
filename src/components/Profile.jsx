@@ -70,6 +70,7 @@ const Profile = () => {
       <nav className="navbar">
         <div className="navbar-container">
           <img src={logo} alt="Logo" className="navbar-logo" />
+          <p className="current-page">Profile</p>
           <ul className="navbar-list">
             <li>
               <button className="navbar-link" onClick={() => navigate("/my-collection")}>
