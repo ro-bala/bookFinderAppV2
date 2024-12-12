@@ -1,3 +1,4 @@
+//SIGN UP
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
@@ -21,7 +22,7 @@ const SignUp = () => {
     const userData = { fullName, email, password };
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BE_URL}/api/auth/signup`, {
+      const response = await fetch(`${import.meta.env.VITE_BE_URL}/api/auth/signup`, { //VITE_BE_URL
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,9 +46,10 @@ const SignUp = () => {
 
   return (
     <div className="login-container">
+      <h1>Welcome To BookWorm!</h1>
       <img src={logo} alt="Logo" className="app-logo" />
       <div className="login-card">
-        <h1>Sign Up</h1>
+        <h2>Sign Up</h2>
         <div className="login-form">
           <input
             type="text"
