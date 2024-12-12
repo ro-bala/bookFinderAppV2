@@ -9,7 +9,7 @@ import MyCollection from "./components/MyCollections";
 import Archive from "./components/Archive";
 import DownloadedBooks from "./components/DownloadedBooks"; // Import DownloadedBooks page
 
-import logo from "./components/logo.png"; 
+import logo from "./imgs/logo.png"; 
 import "./App.css";
 
 const App = () => {
