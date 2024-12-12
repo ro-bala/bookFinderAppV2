@@ -1,6 +1,5 @@
-//NEW COLLECTION
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../imgs/logo.png"; // Adjust the path to your logo file
 import Vines from "../imgs/Vines.jpeg";
 
@@ -8,40 +7,67 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [authToken, setAuthToken] = useState(localStorage.getItem('token')); // Assuming you're using token from localStorage
+  const [favorites, setFavorites] = useState([]); // State for favorites
+  const [archive, setArchive] = useState([]); // State for archive
+  const [downloadedBooks, setDownloadedBooks] = useState([]); // State for downloaded books
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchBooks(); // Initial load of books
+    fetchRandomBooks(); // Fetch 5 random books on page load
   }, []);
 
-  const fetchBooks = (subject = "love") => {
-    fetch(`https://openlibrary.org/subjects/${subject}.json?limit=20`)
+  // Define a list of subjects for random selection
+  const subjects = ["love", "science", "history", "art", "fiction", "biography", "mystery", "fantasy", "technology"];
+
+  // Fetch random books (5 books) on page load or button click
+  const fetchRandomBooks = () => {
+    const randomSubject = subjects[Math.floor(Math.random() * subjects.length)]; // Pick a random subject
+    fetch(`https://openlibrary.org/subjects/${randomSubject}.json?limit=5`) // Fetch books from the random subject
       .then((response) => response.json())
       .then((data) => setBooks(data.works || []))
       .catch((error) => console.error("Error fetching books:", error));
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+  // Fetch books based on search query, limiting to 5 results
+  const fetchBooksBySearch = () => {
+    if (searchQuery.trim() !== "") {
+      fetch(`https://openlibrary.org/search.json?q=${searchQuery}&limit=5`)
+        .then((response) => response.json())
+        .then((data) => setBooks(data.docs || []))
+        .catch((error) => console.error("Error fetching books:", error));
+    }
   };
 
-  const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Handle search input changes
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value); // Update search query state
+  };
 
+  // Handle search button click to fetch books related to the query
+  const handleSearchClick = () => {
+    fetchBooksBySearch(); // Fetch books if search query is not empty
+  };
+
+  // Handle generate random books button click
+  const handleGenerateRandomBooks = () => {
+    fetchRandomBooks(); // Fetch random books (5 random books)
+  };
+
+  // Handle book click for book details
   const handleBookClick = (book) => {
     navigate(`/book-details`, { state: { book } }); // Navigate to book details
   };
 
-  const handleGenerateNewBooks = () => {
-    const subjects = ["love", "science", "history", "art", "fiction"];
-    const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
-    fetchBooks(randomSubject); // Fetch books from a random subject
-  };
-
+  // Save book to favorites, checking if it's already in the list
   const saveBookToFavorites = async (book) => {
     if (!authToken) {
       alert("You must be logged in to save books.");
+      return;
+    }
+
+    // Check if book is already in favorites
+    if (favorites.some((favorite) => favorite.key === book.key)) {
+      alert("This book is already in your favorites!");
       return;
     }
 
@@ -52,12 +78,13 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
           "Content-Type": "application/json",
           "Authorization": `Bearer ${authToken}`, // Send the token in the header
         },
-        body: JSON.stringify({ book })
+        body: JSON.stringify({ book }),
       });
 
       const data = await response.json();
       if (response.ok) {
         alert("Book saved to your favorites!");
+        setFavorites([...favorites, book]); // Add book to favorites list
         addToFavorites(book); // Optionally update the local state if you keep track of favorites
       } else {
         alert(data.message || "Error saving book");
@@ -67,6 +94,38 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
     }
   };
 
+  // Send book to archive, checking if it's already in the list
+  const sendToArchive = (book) => {
+    // Check if book is already in the archive
+    if (archive.some((archivedBook) => archivedBook.key === book.key)) {
+      alert("This book is already in your archive!");
+      return;
+    }
+    setArchive([...archive, book]);
+    addToArchive(book); // Optionally update the archive state
+    alert("Book added to archive!"); // Alert when added to archive
+  };
+
+  // Download book, checking if it's already in the list
+  const downloadBook = (book) => {
+    // Check if book is already downloaded
+    if (downloadedBooks.some((downloaded) => downloaded.key === book.key)) {
+      alert("This book is already downloaded!");
+      return;
+    }
+    setDownloadedBooks([...downloadedBooks, book]);
+    addToDownloadedBooks(book); // Optionally update the downloaded books state
+    alert("Book downloaded!"); // Alert when added to downloaded books
+  };
+
+  // Render book images and handle missing cover images
+  const renderBookImage = (book) => {
+    const coverId = book.cover_i || book.cover_id; // Handle both cover_i and cover_id
+    return coverId
+      ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`
+      : "https://via.placeholder.com/150"; // Fallback image if no cover
+  };
+
   return (
     <div className="container">
       <nav className="navbar">
@@ -74,7 +133,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
           <img src={logo} alt="Logo" className="navbar-logo" />
           <p className="current-page">Find A Book</p>
           <ul className="navbar-list">
-          <li>
+            <li>
               <button className="navbar-link" onClick={() => navigate("/archive")}>
                 Archive
               </button>
@@ -112,28 +171,28 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
           className="search-bar"
           placeholder="Search for a book..."
           value={searchQuery}
-          onChange={handleSearchChange}
+          onChange={handleSearchChange} // Handle input change
         />
+        <button onClick={handleSearchClick}>Search</button> {/* Button to trigger search */}
       </div>
 
-      {/* Generate New Books Button */}
-      <button className="generate-button" onClick={handleGenerateNewBooks}>
-        Generate New Books
-      </button>
+      {/* Generate Random Books Button */}
+      <button onClick={handleGenerateRandomBooks}>Generate Random Books</button>
 
       {/* Books Display */}
       <div className="grid-container">
-        <img src={Vines} />
-        {filteredBooks.map((book) => (
+        <img src={Vines} alt="Background" />
+        {books.length === 0 && <p>No books available to display.</p>} {/* Display if no books */}
+        {books.map((book) => (
           <div className="card" key={book.key}>
             <img
-              src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
+              src={renderBookImage(book)} // Use the renderBookImage function to handle images
               alt={book.title}
               onClick={() => handleBookClick(book)}
               style={{ cursor: "pointer" }}
             />
             <h3>{book.title}</h3>
-            <p>By: {book.authors?.map((author) => author.name).join(", ")}</p>
+            <p>By: {book.author_name?.join(", ") || "Unknown"}</p>
             <button
               className="favorite-button"
               onClick={() => saveBookToFavorites(book)} // Call the function when adding to favorites
@@ -142,20 +201,18 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
             </button>
             <button
               className="archive-button"
-              onClick={() => addToArchive(book)}
+              onClick={() => sendToArchive(book)} // Call the function when sending to archive
             >
               Send to Archive
             </button>
             <button
               className="download-button"
-              onClick={() => addToDownloadedBooks(book)}
+              onClick={() => downloadBook(book)} // Call the function when downloading the book
             >
               Download Book
             </button>
-            <img src={Vines} />
           </div>
         ))}
-      
       </div>
     </div>
   );

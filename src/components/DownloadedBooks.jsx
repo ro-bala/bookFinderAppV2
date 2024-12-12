@@ -6,6 +6,9 @@ import logo from "../imgs/logo.png";
 const DownloadedBooks = ({ downloadedBooks, removeFromDownloadedBooks }) => {
   const navigate = useNavigate();
 
+  const handleBookClick = (book) => {
+    navigate(`/book-details`, { state: { book } }); // Navigate to book details
+  };
   return (
     <div className="container">
       <nav className="navbar">
@@ -45,9 +48,11 @@ const DownloadedBooks = ({ downloadedBooks, removeFromDownloadedBooks }) => {
           {downloadedBooks.map((book) => (
             <div key={book.key} className="card">
               <img
-                src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-                alt={book.title}
-              />
+              src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
+              alt={book.title}
+              onClick={() => handleBookClick(book)}
+              style={{ cursor: "pointer" }}
+            />
               <h3>{book.title}</h3>
               <button
                 className="favorite-button"
