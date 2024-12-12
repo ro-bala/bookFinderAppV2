@@ -211,6 +211,7 @@ input[type="password"]::placeholder {
     width: 100%;
     background-color: var(--primary-color);
     padding: 1rem 0;
+    color: var(--white);
     box-shadow: var(--shadow-medium);
     position: fixed;
     top: 0;
