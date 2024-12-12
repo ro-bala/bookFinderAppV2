@@ -55,7 +55,7 @@ const NewCollection = ({ addToFavorites, addToArchive, addToDownloadedBooks }) =
 
   // Handle book click for book details
   const handleBookClick = (book) => {
-    navigate(`/book-details`, { state: { book } }); // Navigate to book details
+    navigate(`/book-details`, { state: { book: book || {} } }); // Navigate to book details
   };
 
   // Save book to favorites, checking if it's already in the list
